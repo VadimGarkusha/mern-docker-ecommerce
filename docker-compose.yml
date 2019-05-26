@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  api:
+    container_name: api
+    build: ./api
+    ports:
+      - 9000:9000
+    networks: 
+      - webappnetwork
+
+  client:
+    container_name: client
+    build: ./client
+    ports:
+      - 3000:3000
+    volumes:
+      - ./client:/client
+      - /client/node_modules
+    networks: 
+      - webappnetwork
+    
+networks:
+  webappnetwork:
+    driver: bridge
