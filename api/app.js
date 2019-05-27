@@ -1,7 +1,7 @@
 import createError from 'http-errors';
 import express from 'express';
 import cookieParser from 'cookie-parser';
-import morgan from 'morgan';
+import logger from 'morgan';
 import cors from 'cors';
 import colors from 'colors';
 import connectDb from './db';
@@ -15,7 +15,7 @@ console.log(`Running in ${process.env.NODE_ENV}`.green);
 // view engine setup
 
 app.use(cors());
-app.use(morgan('combined'));
+app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
