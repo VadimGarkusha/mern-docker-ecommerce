@@ -1,30 +1,27 @@
-const createError = require('http-errors');
-const express = require('express');
-const path = require('path');
-const cookieParser = require('cookie-parser');
-const logger = require('morgan');
-const cors = require("cors");
+import createError from 'http-errors';
+import express from 'express';
+import cookieParser from 'cookie-parser';
+import morgan from 'morgan';
+import cors from 'cors';
+import colors from 'colors';
+import connectDb from './db';
 
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
-const testAPIRouter = require('./routes/testAPI');
-
-const app = express();
+const app = express(); 
+const port = process.env.PORT || 9000;
+connectDb();
+console.log(`Running in ${process.env.NODE_ENV}`.green);
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
 
 app.use(cors());
-app.use(logger('dev'));
+app.use(morgan('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use("/testAPI", testAPIRouter);
+// app.use('/', indexRouter);
+// app.use('/users', usersRouter);
+// app.use("/testAPI", testAPIRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
@@ -40,6 +37,10 @@ app.use((err, req, res, next) => {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+
+app.listen(port, () => {
+  console.log(`Running on port ${port}`.green);
 });
 
 module.exports = app;
