@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -11,7 +12,8 @@ import Menu from '@material-ui/core/Menu';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import CartIcon from '@material-ui/icons/ShoppingCart';
+import CartIcon from '@material-ui/icons/ShoppingCart'
+
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -70,18 +72,16 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-function PrimarySearchAppBar() {
+export default () => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const isMenuOpen = Boolean(anchorEl);
 
-
-
-  function handleProfileMenuOpen(event) {
+  const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   }
 
-  function handleMenuClose() {
+  const handleMenuClose = () => {
     setAnchorEl(null);
   }
 
@@ -93,8 +93,11 @@ function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem
+        component={React.forwardRef((props, ref) => <Link to='login' {...props} />)}
+        onClick={handleMenuClose}>
+        Login
+      </MenuItem>
     </Menu>
   );
 
@@ -121,7 +124,7 @@ function PrimarySearchAppBar() {
           <div className={classes.sectionDesktop}>
             <IconButton color='inherit'>
               <Badge badgeContent={0} color='secondary'>
-                <CartIcon fontSize='large'/>
+                <CartIcon fontSize='large' />
               </Badge>
             </IconButton>
             <IconButton
@@ -131,7 +134,7 @@ function PrimarySearchAppBar() {
               onClick={handleProfileMenuOpen}
               color='inherit'
             >
-              <AccountCircle fontSize='large'/>
+              <AccountCircle fontSize='large' />
             </IconButton>
           </div>
         </Toolbar>
@@ -140,5 +143,3 @@ function PrimarySearchAppBar() {
     </div>
   );
 }
-
-export default PrimarySearchAppBar;
