@@ -1,8 +1,6 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -21,12 +19,12 @@ const styles = theme => ({
 });
 
 
-class Login extends React.Component {
+class SignUp extends React.Component {
 
   renderForm = (classes) => (
     <div>
       <Typography component="h1" variant="h5" align='center'>
-        Sign in
+        Sign Up
         </Typography>
       <form className={classes.form} noValidate>
         <TextField
@@ -51,10 +49,6 @@ class Login extends React.Component {
           id="password"
           autoComplete="current-password"
         />
-        <FormControlLabel
-          control={<Checkbox value="remember" color="primary" />}
-          label="Remember me"
-        />
         <Button
           type="submit"
           fullWidth
@@ -62,17 +56,12 @@ class Login extends React.Component {
           color="primary"
           className={classes.submit}
         >
-          Sign In
+          Sign Up
           </Button>
         <Grid container>
-          <Grid item xs>
-            <Link href="#" variant="body2">
-              Forgot password?
-              </Link>
-          </Grid>
           <Grid item>
-            <Link href="/signup" variant="body2">
-              {"Don't have an account? Sign Up"}
+            <Link href="/login" variant="body2">
+              {"Already have an account? Sign In"}
             </Link>
           </Grid>
         </Grid>
@@ -89,4 +78,4 @@ class Login extends React.Component {
   }
 }
 
-export default withStyles(styles)(Login);
+export default withStyles(styles)(SignUp);
