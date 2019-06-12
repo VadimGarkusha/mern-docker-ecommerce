@@ -9,9 +9,11 @@ import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import FacebookLogin from "react-facebook-login";
 import GoogleLogin from "react-google-login";
+import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF as faCoffee } from '@fortawesome/free-brands-svg-icons/faFacebookF';
 import AuthenticationUIWrapper from "../components/AuthenticationUIWrapper";
+import {serverUrl} from '../config/const';
 
 const styles = theme => ({
   form: {
@@ -41,12 +43,29 @@ const styles = theme => ({
 });
 
 class Login extends React.Component {
-  responseFacebook = (response) => {
-    console.log(response);
+
+  responseFacebook = async (response) => {
+    const { email, name, id } = response;
+    const requestData = { email, name, socialId: id};
+    var serverResponse = await axios.post(`${serverUrl}/login/social`, {requestData});
+    console.log(serverResponse);
   }
 
-  responseGoogle = (response) => {
+  responseGoogle = async (response) => {
+    const { email, familyName, givenName, googleId } = response.profileObj;
+    const requestData = { 
+      email, 
+      name: `${givenName} ${familyName}`, 
+      socialId: googleId
+    };
+    var serverResponse = await axios.post(`${serverUrl}/login/social`, {requestData});
+    console.log(serverResponse);
+  }
+
+  regularLogin = async (response) => {
     console.log(response);
+    var serverResponse = await axios.post(`${serverUrl}/login`, {response});
+    console.log(serverResponse);
   }
 
   renderForm = classes => (
@@ -87,6 +106,7 @@ class Login extends React.Component {
           variant="contained"
           color="primary"
           className={classes.submit}
+          onClick = {this.regularLogin}
         >
           Sign In
         </Button>
