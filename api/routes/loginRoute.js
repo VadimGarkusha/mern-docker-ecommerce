@@ -1,5 +1,5 @@
 import express from 'express';
-import { socialLogin, regularLogin } from '../controllers/loginController';
+import { socialLogin, regularLogin } from '../controllers/LoginController';
 
 const loginController = express.Router();
 

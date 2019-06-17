@@ -5,7 +5,7 @@ import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-import AuthenticationUIWrapper from '../components/AuthenticationUIWrapper';
+import AuthenticationPageWrapper from '../components/AuthenticationPageWrapper';
 
 
 const styles = theme => ({
@@ -73,7 +73,7 @@ class SignUp extends React.Component {
     const { classes } = this.props;
 
     return (
-      <AuthenticationUIWrapper Component={() => this.renderForm(classes)} />
+      <AuthenticationPageWrapper Component={() => this.renderForm(classes)} />
     );
   }
 }

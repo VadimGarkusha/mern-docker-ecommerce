@@ -45,7 +45,7 @@ const styles = theme => ({
 });
 
 
-class AuthenticationUIWrapper extends React.Component {
+class AuthenticationPageWrapper extends React.Component {
 
   render() {
     const {classes, Component} = this.props;
@@ -66,4 +66,4 @@ class AuthenticationUIWrapper extends React.Component {
   }
 }
 
-export default withStyles(styles)(AuthenticationUIWrapper);
+export default withStyles(styles)(AuthenticationPageWrapper);
