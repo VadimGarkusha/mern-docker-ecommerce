@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import axios from 'axios';
 import { serverUrl } from '../../config/const';
-import LoginForm from './LoginForm';
+import SignUpForm from './SignUpForm';
 
 
 const useStyles = makeStyles(theme => ({
@@ -47,7 +47,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Login() {
+export default function SignUp() {
   const classes = useStyles();
   const [inputs, setInputs] = useState({ email: '', password: '', isButtonDisabled: true });
 
@@ -59,7 +59,7 @@ export default function Login() {
   const facebookLogin = async (response) => {
     const { email, name, id } = response;
     const requestObj = { email, name, socialId: id };
-    var serverResponse = await axios.post(`${serverUrl}/login/social`, { requestObj });
+    var serverResponse = await axios.post(`${serverUrl}/signup/social`, { requestObj });
     console.log(serverResponse);
   }
 
@@ -70,17 +70,17 @@ export default function Login() {
       name: `${givenName} ${familyName}`,
       socialId: googleId
     };
-    var serverResponse = await axios.post(`${serverUrl}/login/social`, { requestObj });
+    var serverResponse = await axios.post(`${serverUrl}/signup/social`, { requestObj });
     console.log(serverResponse);
   }
 
-  const regularLogin = async (e) => {
+  const regularSignUp = async (e) => {
     if (e)
       e.preventDefault();
 
     const { email, password } = inputs;
 
-    var serverResponse = await axios.post(`${serverUrl}/login`, { email, password });
+    var serverResponse = await axios.post(`${serverUrl}/signup`, { email, password });
     console.log(serverResponse);
   }
 
@@ -91,10 +91,10 @@ export default function Login() {
         <Avatar className={classes.avatar}>
           <PersonIcon className={classes.largeIcon} />
         </Avatar>
-        <LoginForm
+        <SignUpForm
           facebookLogin={facebookLogin}
           googleLogin={googleLogin}
-          regularLogin={regularLogin}
+          regularSignUp={regularSignUp}
           handleInputChange={handleInputChange}
           inputs />
       </div>

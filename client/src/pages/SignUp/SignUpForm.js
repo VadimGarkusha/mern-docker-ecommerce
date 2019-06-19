@@ -17,14 +17,14 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function LoginForm(props) {
-  const { facebookLogin, googleLogin, regularLogin, handleInputChange, inputs} = props;
+export default function SignUpForm(props) {
+  const { facebookLogin, googleLogin, regularSignUp, handleInputChange, inputs} = props;
   const classes = useStyles();
 
   return (
        <div>
       <Typography component='h1' variant='h5' align='center'>
-        Sign in
+        Create Account
       </Typography>
       <form className={classes.form}>
         <TextField
@@ -59,7 +59,7 @@ export default function LoginForm(props) {
           variant='contained'
           color='primary'
           className={classes.submit}
-          onClick={regularLogin}>
+          onClick={regularSignUp}>
           Continue
         </Button>
         <SocialAuthButtons
@@ -68,20 +68,13 @@ export default function LoginForm(props) {
         />
 
         <Grid container>
-          <Grid item xs>
-            <Link href='#' variant='body2'>
-              Forgot password?
-            </Link>
-          </Grid>
           <Grid item>
-            <Link href='/signup' variant='body2'>
-              {"Don't have an account? Sign Up"}
+            <Link href='/signin' variant='body2'>
+              {"Already have an account? Sign In"}
             </Link>
           </Grid>
         </Grid>
       </form>
     </div>
   );
-
 }
-
