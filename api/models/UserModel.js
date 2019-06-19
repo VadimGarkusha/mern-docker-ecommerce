@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt';
 
 const { Schema } = mongoose;
 
-const UserModel = new Schema(
+const UsersModel = new Schema(
   {
     name: String,
     email: {
@@ -38,4 +38,4 @@ UsersModel.methods.generateHash = (password) =>
 UsersModel.methods.validPassword = (password) =>
   bcrypt.compareSync(password, this.password);
 
-module.exports = mongoose.model('Users', UserModel);
+module.exports = mongoose.model('Users', UsersModel);

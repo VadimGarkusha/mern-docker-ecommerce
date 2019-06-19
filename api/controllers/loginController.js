@@ -1,3 +1,5 @@
+const UserModel = require('../models/UserModel');
+
 exports.socialLogin = (req, res) => {
   const { body } = req;
   console.log(body);
