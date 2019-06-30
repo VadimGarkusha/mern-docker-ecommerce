@@ -5,6 +5,8 @@ import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons/faInfoCircle';
 import SocialAuthButtons from '../../components/SocialAuthButtons';
 
 const useStyles = makeStyles(theme => ({
@@ -14,22 +16,27 @@ const useStyles = makeStyles(theme => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 1)
+  },
+  warning: {
+    color: theme.palette.error.main
   }
 }));
 
 export default function SignUpForm(props) {
-  const { facebookLogin, googleLogin, regularSignUp, handleInputChange, inputs} = props;
+  const { facebookLogin, googleLogin, regularSignUp, handleInputChange, inputs, isConfirmPasswordInvalid } = props;
+  const { email, password, confirmPassword, isValidationFailed } = inputs;
+
   const classes = useStyles();
 
   return (
-       <div>
+    <div>
       <Typography component='h1' variant='h5' align='center'>
         Create Account
       </Typography>
       <form className={classes.form}>
         <TextField
           variant='outlined'
-          margin='normal'
+          margin='dense'
           required
           fullWidth
           id='email'
@@ -38,11 +45,11 @@ export default function SignUpForm(props) {
           autoComplete='email'
           type='email'
           onChange={handleInputChange}
-          value={inputs.email}
+          value={email}
         />
         <TextField
           variant='outlined'
-          margin='normal'
+          margin='dense'
           required
           fullWidth
           name='password'
@@ -51,8 +58,51 @@ export default function SignUpForm(props) {
           id='password'
           autoComplete='password'
           onChange={handleInputChange}
-          value={inputs.password}
+          value={password}
         />
+        <TextField
+          variant='outlined'
+          margin='dense'
+          required
+          fullWidth
+          name='confirmPassword'
+          label='Confirm Password'
+          type='password'
+          id='confirmPassword'
+          autoComplete='password'
+          onChange={handleInputChange}
+          value={confirmPassword}
+        />
+        {
+          isValidationFailed && password.split('').length < 8 ?
+            <Typography
+              component='p'
+              variant='caption'
+              align='left'
+              className={classes.warning}>
+              <FontAwesomeIcon
+                icon={faInfoCircle}
+                style={{ marginRight: 4 }}
+              />
+              Password should be at least 8 characters!
+      </Typography>
+            : null
+        }
+        {
+          isValidationFailed && isConfirmPasswordInvalid() ?
+            <Typography
+              component='p'
+              variant='caption'
+              align='left'
+              className={classes.warning}>
+              <FontAwesomeIcon
+                icon={faInfoCircle}
+                style={{ marginRight: 4 }}
+              />
+              The password and confrimation password must match!
+      </Typography>
+            : null
+        }
         <Button
           type='submit'
           fullWidth
@@ -63,7 +113,7 @@ export default function SignUpForm(props) {
           Continue
         </Button>
         <SocialAuthButtons
-          facebookAuthHandler={facebookLogin} 
+          facebookAuthHandler={facebookLogin}
           googleAuthHandler={googleLogin}
         />
 

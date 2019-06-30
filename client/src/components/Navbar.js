@@ -94,9 +94,14 @@ export default () => {
       onClose={handleMenuClose}
     >
       <MenuItem
-        component={React.forwardRef((props, ref) => <Link to='login' {...props} />)}
+        component={React.forwardRef((props, ref) => <Link to='signin' {...props} />)}
         onClick={handleMenuClose}>
         Login
+      </MenuItem>
+      <MenuItem
+        component={React.forwardRef((props, ref) => <Link to='signup' {...props} />)}
+        onClick={handleMenuClose}>
+        Create Account
       </MenuItem>
     </Menu>
   );

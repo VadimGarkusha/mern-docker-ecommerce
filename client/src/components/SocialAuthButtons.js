@@ -3,7 +3,7 @@ import FacebookLogin from 'react-facebook-login';
 import GoogleLogin from 'react-google-login';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { makeStyles } from '@material-ui/core/styles';
-import { faFacebookF as faCoffee } from '@fortawesome/free-brands-svg-icons/faFacebookF';
+import { faFacebookF } from '@fortawesome/free-brands-svg-icons/faFacebookF';
 
 const useStyles = makeStyles(theme => ({
   form: {
@@ -39,7 +39,7 @@ export default function SocialAuthButtons({ facebookAuthHandler, googleAuthHandl
     <div style={{ flexWrap: 'wrap' }} >
       <FacebookLogin
         cssClass={`${classes.socialLoginButton} ${classes.facebookButton}`}
-        icon={<FontAwesomeIcon icon={faCoffee} size='2x' style={{ marginRight: 25, fontSize: '1.5em' }} />}
+        icon={<FontAwesomeIcon icon={faFacebookF} size='2x' style={{ marginRight: 25, fontSize: '1.5em' }} />}
         appId='292213141686047'
         fields='name,email,picture'
         callback={facebookAuthHandler}

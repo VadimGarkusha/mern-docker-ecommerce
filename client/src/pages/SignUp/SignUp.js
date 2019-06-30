@@ -49,7 +49,12 @@ const useStyles = makeStyles(theme => ({
 
 export default function SignUp() {
   const classes = useStyles();
-  const [inputs, setInputs] = useState({ email: '', password: '', isButtonDisabled: true });
+  const [inputs, setInputs] = useState({ 
+    email: '', 
+    password: '', 
+    confirmPassword: '',
+    isValidationFailed: false
+   });
 
   const handleInputChange = (event) => {
     event.persist();
@@ -74,14 +79,23 @@ export default function SignUp() {
     console.log(serverResponse);
   }
 
+  const isConfirmPasswordInvalid = () => {
+    const { password, confirmPassword } = inputs;
+    return confirmPassword !== password;
+  }
+
   const regularSignUp = async (e) => {
     if (e)
       e.preventDefault();
 
     const { email, password } = inputs;
-
-    var serverResponse = await axios.post(`${serverUrl}/signup`, { email, password });
-    console.log(serverResponse);
+    
+    if(password.split('').length < 8 || isConfirmPasswordInvalid()) {
+      setInputs(inputs => ({ ...inputs, isValidationFailed: true }));
+    } else {
+      var serverResponse = await axios.post(`${serverUrl}/signup`, { email, password });
+      console.log(serverResponse);
+    }
   }
 
   return (
@@ -96,7 +110,8 @@ export default function SignUp() {
           googleLogin={googleLogin}
           regularSignUp={regularSignUp}
           handleInputChange={handleInputChange}
-          inputs />
+          inputs={inputs}
+          isConfirmPasswordInvalid={isConfirmPasswordInvalid} />
       </div>
       <Box mt={5}>
       </Box>

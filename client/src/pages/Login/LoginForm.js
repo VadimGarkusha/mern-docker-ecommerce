@@ -29,7 +29,7 @@ export default function LoginForm(props) {
       <form className={classes.form}>
         <TextField
           variant='outlined'
-          margin='normal'
+          margin='dense'
           required
           fullWidth
           id='email'
@@ -42,7 +42,7 @@ export default function LoginForm(props) {
         />
         <TextField
           variant='outlined'
-          margin='normal'
+          margin='dense'
           required
           fullWidth
           name='password'
