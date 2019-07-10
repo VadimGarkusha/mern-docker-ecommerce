@@ -6,7 +6,9 @@ import PersonIcon from '@material-ui/icons/Person';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import axios from 'axios';
+import {userRegularLogin} from '../../actions';
 import { serverUrl } from '../../config/const';
+import {connect} from 'react-redux';
 import LoginForm from './LoginForm';
 
 
@@ -47,7 +49,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Login() {
+const Login = (props) => {
   const classes = useStyles();
   const [inputs, setInputs] = useState({ email: '', password: '', isButtonDisabled: true });
 
@@ -74,14 +76,13 @@ export default function Login() {
     console.log(serverResponse);
   }
 
-  const regularLogin = async (e) => {
+  const regularLogin = (e) => {
     if (e)
       e.preventDefault();
 
     const { email, password } = inputs;
 
-    var serverResponse = await axios.post(`${serverUrl}/login`, { email, password });
-    console.log(serverResponse);
+    props.userRegularLogin({email, password});
   }
 
   return (
@@ -102,5 +103,10 @@ export default function Login() {
       </Box>
     </Container>
   );
-
 }
+
+const mapDispatchToProps = dispatch => ({
+  userRegularLogin: credentials => dispatch(userRegularLogin(credentials))
+});
+
+export default connect(null, mapDispatchToProps)(Login);

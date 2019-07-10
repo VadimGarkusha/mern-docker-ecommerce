@@ -20,7 +20,7 @@ exports.regularSignUp = async (req, res) => {
     return res.status(400).json({ errors: 'User is already exists.' });
 
   const _id = mongoose.Types.ObjectId();
-  const token = jwt.sign({ _id, email: email, fullName: password }, 'RESTFULAPIs');
+  const token = jwt.sign({ _id, email: email }, 'RESTFULAPIs');
 
   const newUser = new UserModel({
     _id,

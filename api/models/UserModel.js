@@ -35,7 +35,7 @@ UsersModel.methods.generateHash = (password) =>
   bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 
 // checking if password is valid
-UsersModel.methods.validPassword = (password) =>
-  bcrypt.compareSync(password, this.password);
+UsersModel.methods.validPassword = function (password){
+  return bcrypt.compareSync(password, this.password);}
 
 module.exports = mongoose.model('Users', UsersModel);

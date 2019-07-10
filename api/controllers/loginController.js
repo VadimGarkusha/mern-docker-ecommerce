@@ -7,9 +7,14 @@ exports.socialLogin = (req, res) => {
   return res.json('data');
 }
 
-exports.regularLogin = (req, res) => {
-  const { body } = req;
-  console.log(body);
+exports.regularLogin = async (req, res) => {
+  const { email, password } = req.body;
 
-  return res.json('data');
+  const user = await UserModel.findOne({email});
+  console.log(user)
+  if(user && user.validPassword(password)){
+    return res.json(user);
+  }
+
+  return res.status(401);
 }

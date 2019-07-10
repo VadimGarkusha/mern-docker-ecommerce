@@ -4,7 +4,7 @@ import signUpRoute from './signUpRoute';
 
 const router = express.Router();
 
-router.use('/login', loginRoute);
+router.use('/signin', loginRoute);
 router.use('/signup', signUpRoute);
 
 export default router;
