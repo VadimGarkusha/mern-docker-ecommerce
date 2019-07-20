@@ -12,6 +12,7 @@ const theme = createMuiTheme({
     },
     error: {
       main: red.A400,
+      light: '#f9eff1'
     },
     background: {
       default: '#fff',

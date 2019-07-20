@@ -5,6 +5,7 @@ import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import ErrorMessage from './ErrorMessage';
 import SocialAuthButtons from '../../components/SocialAuthButtons';
 
 const useStyles = makeStyles(theme => ({
@@ -18,11 +19,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function LoginForm(props) {
-  const { facebookLogin, googleLogin, regularLogin, handleInputChange, inputs} = props;
+  const { facebookLogin, googleLogin, regularLogin, handleInputChange, inputs } = props;
   const classes = useStyles();
-
   return (
-       <div>
+    <div>
       <Typography component='h1' variant='h5' align='center'>
         Sign in
       </Typography>
@@ -53,6 +53,9 @@ export default function LoginForm(props) {
           onChange={handleInputChange}
           value={inputs.password}
         />
+        { inputs.wrongCredentials ?
+          <ErrorMessage message="We didn't find an account with that email address or password." />
+          : null}
         <Button
           type='submit'
           fullWidth
@@ -63,7 +66,7 @@ export default function LoginForm(props) {
           Continue
         </Button>
         <SocialAuthButtons
-          facebookAuthHandler={facebookLogin} 
+          facebookAuthHandler={facebookLogin}
           googleAuthHandler={googleLogin}
         />
 

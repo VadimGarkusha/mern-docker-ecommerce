@@ -10,11 +10,10 @@ exports.socialLogin = (req, res) => {
 exports.regularLogin = async (req, res) => {
   const { email, password } = req.body;
 
-  const user = await UserModel.findOne({email});
-  console.log(user)
-  if(user && user.validPassword(password)){
-    return res.json(user);
-  }
+  const user = await UserModel.findOne({ email });
 
-  return res.status(401);
+  if (user && user.validPassword(password))
+    return res.json(user);
+
+  return res.status(401).json({ error: "We didn't find an account with that email address or password." });
 }
