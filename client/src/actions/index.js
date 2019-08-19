@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { serverUrl } from '../config/const';
-import { AUTH_USER } from './types';
-import { history } from '../store/history';
+import { LOGIN_USER, LOGOUT_USER } from './types';
 
 export const userRegularLogin = (credentials) => async dispatch => {
   const { email, password } = credentials;
@@ -11,7 +10,7 @@ export const userRegularLogin = (credentials) => async dispatch => {
     console.log(res)
     if (res.status === 200) {
       dispatch(loginSuccess(res.data));
-      //history.push('/');
+      
     } else {
       dispatch(loginSuccess(null));
     }
@@ -20,4 +19,8 @@ export const userRegularLogin = (credentials) => async dispatch => {
   }
 }
 
-const loginSuccess = user => ({ type: AUTH_USER, payload: user })
+export const userLogout = () => dispatch => {
+  dispatch({ type: LOGOUT_USER });
+}
+
+const loginSuccess = user => ({ type: LOGIN_USER, payload: user })

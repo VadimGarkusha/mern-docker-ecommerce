@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
+import { withRouter, Redirect } from 'react-router-dom'
 import {userRegularLogin} from '../../actions';
 import { serverUrl } from '../../config/const';
 import LoginForm from './LoginForm';
@@ -49,11 +50,14 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Login = (props) => {
+const Login = props => {
   const classes = useStyles();
-  const [inputs, setInputs] = useState({ email: '', password: '', wrongCredentials: false });
+  const [inputs, setInputs] = useState({ email: '', password: '', isSubmitted: false });
   const user = useSelector(state => state.user);
   const dispatch = useDispatch();
+
+  if (inputs.isSubmitted && user.isLoggedIn)
+    return <Redirect to='/'/>;
 
   const handleInputChange = (event) => {
     event.persist();
@@ -84,7 +88,7 @@ const Login = (props) => {
 
     const { email, password } = inputs;
     dispatch(userRegularLogin({email, password}));
-    setInputs(inputs => ({ ...inputs, wrongCredentials: (user) ? false : true }))
+    setInputs(inputs => ({ ...inputs, isSubmitted: true}));
   }
 
   return (
@@ -99,7 +103,8 @@ const Login = (props) => {
           googleLogin={googleLogin}
           regularLogin={regularLogin}
           handleInputChange={handleInputChange}
-          inputs={inputs} />
+          inputs={inputs}
+          wrongCredentials= {(user.token) ? false : true } />
       </div>
       <Box mt={5}>
       </Box>
@@ -107,4 +112,4 @@ const Login = (props) => {
   );
 }
 
-export default Login;
+export default withRouter(Login);

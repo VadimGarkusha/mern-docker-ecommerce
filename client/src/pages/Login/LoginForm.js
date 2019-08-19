@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function LoginForm(props) {
-  const { facebookLogin, googleLogin, regularLogin, handleInputChange, inputs } = props;
+  const { facebookLogin, googleLogin, regularLogin, handleInputChange, inputs, wrongCredentials } = props;
   const classes = useStyles();
   return (
     <div>
@@ -53,9 +53,9 @@ export default function LoginForm(props) {
           onChange={handleInputChange}
           value={inputs.password}
         />
-        { inputs.wrongCredentials ?
+        { inputs.isSubmitted && wrongCredentials ?
           <ErrorMessage message="We didn't find an account with that email address or password." />
-          : null}
+          : null }
         <Button
           type='submit'
           fullWidth
