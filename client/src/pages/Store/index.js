@@ -1,14 +1,16 @@
 import React from 'react';
-import Navigation from '../components/Navbar';
+import Navigation from '../../components/Navbar';
 
-class Store extends React.Component {
-  render() {
+const Store = () => {
+
     return (
       <div>
         <Navigation />
+        <div>
+          
+        </div>
       </div>
     );
-  }
 }
 
 export default Store;
