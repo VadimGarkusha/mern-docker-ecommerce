@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
-import Login from './pages/Login/Login';
-import SignUp from './pages/SignUp/SignUp';
+import Login from './pages/Login';
+import SignUp from './pages/SignUp';
 import Store from './pages/Store';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/styles';

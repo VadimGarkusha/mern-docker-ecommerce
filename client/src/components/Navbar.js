@@ -1,14 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
-import Badge from '@material-ui/core/Badge';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
+import { 
+  AppBar, 
+  Toolbar, 
+  IconButton, 
+  Typography, 
+  InputBase,
+  Badge,
+  MenuItem,
+  Menu,
+  Chip } from '@material-ui/core';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
@@ -70,6 +72,10 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up('md')]: {
       display: 'flex',
     },
+  },
+  emailChip: {
+    backgroundColor: theme.palette.background.default,
+    color: theme.palette.primary.main
   }
 }));
 
@@ -78,7 +84,7 @@ export default () => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const isMenuOpen = Boolean(anchorEl);
-  const isLoggedIn = useSelector(state => state.user.isLoggedIn);
+  const {isLoggedIn, email} = useSelector(state => state.user);
   const dispatch = useDispatch();
 
   const handleProfileMenuOpen = (event) => {
@@ -120,6 +126,10 @@ export default () => {
             E-commerce
           </Typography>
           <div className={classes.grow} />
+          { isLoggedIn ? 
+            <Chip label={email} className={classes.emailChip}/> 
+            : null
+          }
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
