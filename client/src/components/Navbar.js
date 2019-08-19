@@ -13,6 +13,8 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import CartIcon from '@material-ui/icons/ShoppingCart'
+import { useDispatch, useSelector } from 'react-redux';
+import {userLogout} from '../actions';
 
 
 const useStyles = makeStyles(theme => ({
@@ -76,6 +78,8 @@ export default () => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const isMenuOpen = Boolean(anchorEl);
+  const isLoggedIn = useSelector(state => state.user.isLoggedIn);
+  const dispatch = useDispatch();
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -85,14 +89,8 @@ export default () => {
     setAnchorEl(null);
   }
 
-  const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
+  const renderAnonymousMenu = () => (
+    <div>
       <MenuItem
         component={React.forwardRef((props, ref) => <Link to='signin' {...props} />)}
         onClick={handleMenuClose}>
@@ -103,8 +101,16 @@ export default () => {
         onClick={handleMenuClose}>
         Create Account
       </MenuItem>
-    </Menu>
-  );
+    </div>
+  )
+
+  const renderAuthenticatedMenu = () => (
+    <MenuItem
+      component={React.forwardRef((props, ref) => <Link to='/' {...props} />)}
+      onClick={() => {dispatch(userLogout())}}>
+      Logout
+      </MenuItem>
+  )
 
   return (
     <div className={classes.grow}>
@@ -144,7 +150,17 @@ export default () => {
           </div>
         </Toolbar>
       </AppBar>
-      {renderMenu}
+      <Menu
+        anchorEl={anchorEl}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+        open={isMenuOpen}
+        onClose={handleMenuClose}
+      >
+{
+  isLoggedIn ? renderAuthenticatedMenu() : renderAnonymousMenu()
+}
+      </Menu>
     </div>
   );
 }
